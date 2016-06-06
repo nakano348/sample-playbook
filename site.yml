@@ -1,0 +1,20 @@
+- hosts: remote
+  sudo: yes
+  gather_facts: no
+  vars:
+    zone: Asia/Tokyo
+    zoneinfo_path: /usr/share/zoneinfo/Asia/Tokyo
+  tasks:
+    - name: set zone to /etc/sysconfig/clock
+      replace: >
+        dest=/etc/sysconfig/clock
+        regexp='^ZONE=\"UTC\"'
+        replace='ZONE="{{zone}}"'
+    - name: set localtime
+      file: >
+        src={{zoneinfo_path}}
+        dest=/etc/localtime
+        state=link
+        force=yes
+    - name: yum update
+      yum: state=latest name=*
