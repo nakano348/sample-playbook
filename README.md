@@ -11,4 +11,5 @@
 `xx.xx.xx.xx`となっている部分をAnsibleを実行したいサーバーのIPアドレスに変更する
 
 ## 3. Ansibleの実行
-`$ ansible-playbook -i hosts site.yml`
++ 実行する対象がEC2インスタンスの場合  
+`$ ansible-playbook -i hosts site.yml --user=ec2-user --private-key ~/.ssh/xxxx.pem`
